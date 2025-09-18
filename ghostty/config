@@ -1,0 +1,13 @@
+theme = Catppuccin Mocha
+macos-titlebar-proxy-icon = hidden
+background-blur-radius = 0
+background-opacity = 0.8
+font-family = "FiraMono Nerd Font"
+font-feature = -cali
+window-height = 36
+window-width = 120
+cursor-opacity = 0.5
+macos-icon = custom-style
+macos-icon-ghost-color = 010101
+macos-icon-screen-color = FF88FF
+font-feature = -dlig
