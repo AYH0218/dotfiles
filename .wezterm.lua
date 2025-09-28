@@ -15,6 +15,9 @@ return {
     color_scheme = "catppuccin-mocha",
     window_close_confirmation = "NeverPrompt",
     window_decorations = "RESIZE",
+
+    -- カーソル設定
+    default_cursor_style = "BlinkingBar"
     
     -- タブバー設定
     hide_tab_bar_if_only_one_tab = false,
@@ -24,8 +27,8 @@ return {
     
     -- ウィンドウフレーム設定
     window_frame = {
-        active_titlebar_bg = "none",     -- catppuccin-mocha base
-        inactive_titlebar_bg = "none",   -- 同じ色で違和感なくす
+        active_titlebar_bg = "none",
+        inactive_titlebar_bg = "none",
     },
     
     -- 背景グラデーション
