@@ -22,14 +22,12 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("i", "<CR>", function()
       local line = vim.api.nvim_get_current_line()
       -- チェックボックス付きリスト (- [ ] or - [x])
-      local indent = line:match("^(%s*)-%s%[.%]%s")
-      if indent then
-        return "<CR>" .. indent .. "- [ ] "
+      if line:match("^%s*-%s%[.%]%s") then
+        return "<CR>- [ ] "
       end
       -- 通常のリスト (-, *, +)
-      local indent_marker = line:match("^(%s*[%-%*%+]%s)")
-      if indent_marker then
-        return "<CR>" .. indent_marker
+      if line:match("^%s*[%-%*%+]%s") then
+        return "<CR>- "
       end
       return "<CR>"
     end, { buffer = true, expr = true, desc = "Smart list continuation" })
@@ -38,16 +36,60 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "o", function()
       local line = vim.api.nvim_get_current_line()
       -- チェックボックス付きリスト
-      local indent = line:match("^(%s*)-%s%[.%]%s")
-      if indent then
-        return "o" .. indent .. "- [ ] "
+      if line:match("^%s*-%s%[.%]%s") then
+        return "o- [ ] "
       end
       -- 通常のリスト
-      local indent_marker = line:match("^(%s*[%-%*%+]%s)")
-      if indent_marker then
-        return "o" .. indent_marker
+      if line:match("^%s*[%-%*%+]%s") then
+        return "o- "
       end
       return "o"
     end, { buffer = true, expr = true, desc = "Smart list continuation with o" })
+
+    -- リストマーカーのトグル
+    vim.keymap.set("n", "<D-;>", function()
+      local line = vim.api.nvim_get_current_line()
+      local row = vim.api.nvim_win_get_cursor(0)[1]
+      -- - がついている行の - を削除
+      if line:match("^%s*-%s") then
+        local new_line = line:gsub("^(%s*)-%s", "%1")
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+        return
+      end
+      -- 普通の行に - を追加
+      if line:match("%S") then
+        local indent = line:match("^(%s*)")
+        local content = line:match("^%s*(.+)")
+        local new_line = indent .. "- " .. content
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+        return
+      end
+    end, { buffer = true, desc = "Toggle markdown list marker" })
+
+    -- チェックボックスのトグル
+    vim.keymap.set("n", "<D-l>", function()
+      local line = vim.api.nvim_get_current_line()
+      local row = vim.api.nvim_win_get_cursor(0)[1]
+      -- - [ ] を - [x] に変換
+      if line:match("^%s*-%s%[ %]") then
+        local new_line = line:gsub("^(%s*-%s)%[ %]", "%1[x]")
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+        return
+      end
+      -- - [x] を - [ ] に変換
+      if line:match("^%s*-%s%[x%]") then
+        local new_line = line:gsub("^(%s*-%s)%[x%]", "%1[ ]")
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+        return
+      end
+      -- 普通のテキストを - [ ] に変換
+      if line:match("%S") then
+        local indent = line:match("^(%s*)")
+        local content = line:match("^%s*(.+)")
+        local new_line = indent .. "- [ ] " .. content
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { new_line })
+        return
+      end
+    end, { buffer = true, desc = "Toggle markdown checkbox" })
   end,
 })
