@@ -13,7 +13,10 @@ map("n", "D", '"_D', { desc = "Delete using blackhole register" })
 map("n", "c", '"_c', { desc = "Delete using blackhole register" })
 map("n", "C", '"_C', { desc = "Delete using blackhole register" })
 map("n", "<space>w", "<cmd>write<cr>", { desc = "Write" })
-map("n", "<space>d", "<cmd>bd<cr>", { desc = "Delete Current Buffer", remap = false })
+map("n", "<space>d", function()
+  Snacks.bufdelete()
+end, { desc = "Delete Buffer", remap = false })
+
 map("i", "<D-l>", "- [ ] ", { noremap = true, silent = true, desc = "Insert checkbox" })
 
 vim.keymap.del("n", "L")
