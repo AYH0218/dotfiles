@@ -46,7 +46,7 @@ vim.api.nvim_create_autocmd("FileType", {
       return "o"
     end, { buffer = true, expr = true, desc = "Smart list continuation with o" })
 
-    -- oキーでの上への行追加時にも適用
+    -- Oキーでの上への行追加時にも適用
     vim.keymap.set("n", "O", function()
       local line = vim.api.nvim_get_current_line()
       -- チェックボックス付きリスト
