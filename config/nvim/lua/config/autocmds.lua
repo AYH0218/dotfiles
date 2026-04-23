@@ -46,6 +46,20 @@ vim.api.nvim_create_autocmd("FileType", {
       return "o"
     end, { buffer = true, expr = true, desc = "Smart list continuation with o" })
 
+    -- oキーでの上への行追加時にも適用
+    vim.keymap.set("n", "O", function()
+      local line = vim.api.nvim_get_current_line()
+      -- チェックボックス付きリスト
+      if line:match("^%s*-%s%[.%]%s") then
+        return "O- [ ] "
+      end
+      -- 通常のリスト
+      if line:match("^%s*[%-%*%+]%s") then
+        return "O- "
+      end
+      return "O"
+    end, { buffer = true, expr = true, desc = "Smart list continuation with O" })
+
     -- リストマーカーのトグル
     vim.keymap.set("n", "<D-;>", function()
       local line = vim.api.nvim_get_current_line()
