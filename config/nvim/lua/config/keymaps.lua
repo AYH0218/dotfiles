@@ -18,6 +18,11 @@ map("n", "<space>d", function()
 end, { desc = "Delete Buffer", remap = false })
 
 map("i", "<D-l>", "- [ ] ", { noremap = true, silent = true, desc = "Insert checkbox" })
+map("v", "<D-b>", [[:<C-u>normal! `>a**<Esc>`<i**<Esc><CR>]], { silent = true, desc = "選択範囲を太字（**）で囲む" })
+
+-- Shift + 矢印キーでバッファ切り替え
+map("n", "<S-Left>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+map("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 vim.keymap.del("n", "L")
 vim.keymap.del("n", "H")
