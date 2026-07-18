@@ -1,0 +1,57 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  // 1. インサートモードでの設定
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": {
+      "j j": "vim::NormalBefore"
+    }
+  },
+  // 2. ノーマルモードでの設定
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      // 保存とサイドバー切り替え
+      "space w": "workspace::Save",
+      "space e": "workspace::ToggleRightDock",
+
+      // 行頭・行末移動 - Beginningに変更してエラー解消
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-e": "editor::MoveToEndOfLine",
+
+      // エディタから「右サイドバー」へCtrl+lで一発移動（右方向へ）
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  // 3. ビジュアルモードでの設定
+  {
+    "context": "Editor && vim_mode == visual && !menu",
+    "bindings": {
+      // 行頭・行末移動 - Beginningに変更してエラー解消
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-e": "editor::MoveToEndOfLine"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      // サイドバーが開いてフォーカスがあっても、space e で閉じられるようにする
+      "space e": "workspace::ToggleRightDock",
+
+      // サイドバー側から「エディタ」へCtrl+hで一発で戻る（左方向へ）
+      "ctrl-h": "workspace::ActivatePaneLeft"
+    }
+  }
+]
