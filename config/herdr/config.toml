@@ -71,6 +71,7 @@ onboarding = false
 # workspace_picker = "prefix+w"
 workspace_picker = ["prefix+w", "ctrl+alt+w"]
 # goto = "prefix+g"
+goto = ["prefix+g", "ctrl+alt+g"]
 # new_workspace = "prefix+shift+n"
 new_workspace = ["prefix+shift+n", "ctrl+alt+n"]
 # new_worktree = "prefix+shift+g"
